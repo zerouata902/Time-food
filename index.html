@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menu</title>
+  <link rel="stylesheet" href="menu.css" />
+  <script defer src="m.js"></script>
+  <link rel="stylesheet"
+<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+  <!-- صورة مستطيلة -->
+  <header class="hero">
+      <div class="closing-time">
+  <i class="fa fa-clock"></i> Closes at 00:00 AM
+</div>
+    <img src="images/Food.png" alt="hero" />
+    <div class="logo-circle"><img src="images/Logotime.png" alt="logo" /></div>
+   <div class="hero-text-arabic">
+  <span id="arabic-text"></span>
+</div>
+<div class="delivery-badge">
+  <i class="fa fa-motorcycle"></i>
+  <span > LIVRAISON GRATUIT</span>
+</div>
+
+
+
+  </header>
+
+  <!-- خانة البحث -->
+<div class="search-bar">
+  <i class="fa fa-search"></i>
+  <input type="text" id="search" placeholder="Search your meal..." />
+</div>
+  <!-- الأقسام -->
+  <div class="menu-section" id="menu-section">
+
+    <div class="category">
+      <h2><span class="border-left"></span>MOJITOS</h2>
+      <div class="items">
+       <div class="item">
+  <img src="images/11.png" alt="Pizza">
+  <h3>Mojito Fraise </h3>
+   <p class="price" data-price="40">25 DH</p>
+    <i class="fa fa-plus add-icon" onclick="addToCart('Mojitos Fraise', 25, 'images/De.png')"></i>
+</div>
+      </div>
+   
+           
+      
+    </div>
+
+    <div class="category">
+      <h2><span class="border-left"></span>PIZZA</h2>
+      <div class="items">
+       <div class="item">
+           
+          <img src="images/22.png" alt="Sandwich">
+          <h3>Pizza Dinde</h3>
+          <p>30 DH</p>
+   <i class="fa fa-plus add-icon" onclick="addToCart('Pizza dinde', 30, 'images/P.png')"></i>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="category">
+      <h2><span class="border-left"></span>BURGER</h2>
+      <div class="items">
+        <div class="item">
+          <img src="images/33.png" alt="Sandwich">
+          <h3>Burger Simple</h3>
+          <p>20 DH</p>
+          <i class="fa fa-plus add-icon" onclick="addToCart('Burger simple', 20, 'images/B.png')"></i>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <section class="special-dishes">
+    <h3 class="section-title"> بعض لمأكولات في المطعم</h3>
+    <div class="dishes-container">
+      
+      <div class="dish-box">
+        <div class="label"> TIME FOOD</div>
+        <img src="images/1.png" alt="plat 1" />
+        <h3>     اللّذة اللي كتدوّخ، و الثمن اللي يفرّح   </h3>
+        <p> كتجمع بين الذوق الممتاز والثمن المناسب، فتعطي إحساس بالإغراء </p>
+      </div>
+
+      <div class="dish-box">
+        <div class="label"> TIME FOOD  </div>
+        <img src="images/2.png" alt="plat 2" />
+        <h3>راه ماشي غير مطعم... هادي تجربة </h3>
+        <p> كتدلّ على تميّز المكان وكتخلي الزبون يحس أن التجربة غتكون مميّزة 
+         </p>
+      </div>
+
+      <div class="dish-box">
+        <div class="label"> TIME FOOD </div>
+        <img src="images/3.png" alt="plat 3" />
+        <h3>منين تجرب، غادي تولّي ديما ترجع </h3>
+        <p> تعبير شعبي يشير إلى الجودة العالية ديال الماكلة،</p>
+      </div>
+
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="cart-bar" onclick="goToCartPage()">
+  <div class="cart-left">
+    <i class="fa fa-shopping-cart"></i>
+    <span id="total">Total: 0 DH</span>
+  </div>
+  <button class="order-btn" onclick="goToCartPage()">
+    أطلب الآن
+  </button>
+</footer>
+
+
+
+  <!-- صفحة السلة -->
+  <div class="cart-page" id="cart-page">
+    <h2> Votre demande  </h2>
+    <div id="cart-items"></div>
+<button class="order-button" onclick="showOrderOptions()"> اطلب الآن</button>
+  </div>
+
+  <!-- اختيارات التوصيل -->
+  <div class="order-options" id="order-options">
+    <button onclick="selectOption('local')">طلب في المطعم</button>
+    <button onclick="selectOption('delivery')">توصيل</button>
+  </div>
+
+
+<!-- الخريطة -->
+
+<div id="map-container" style="display: none;">
+  <div id="map" style="height: 250px;"></div>
+  <button id="send-order-button" onclick="sendWhatsAppOrder()" style="display:none;">
+    📤 إرسال الطلب
+  </button>
+</div>
+  
+  
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</body>
+</html>
