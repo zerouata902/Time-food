@@ -1,5 +1,5 @@
 
-  function hidePreloader(duration = 3000) {
+  function hidePreloader(duration = 1000) {
     const preloader = document.getElementById("preloader");
 
     if (!preloader) return;
