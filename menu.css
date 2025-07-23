@@ -24,17 +24,17 @@ body {
   border-radius: 50%;
 }
 .logo-circle img {
-  width: 90px; height: 90px;
+  width: 80px; height: 80px;
   border-radius: 50%;
     border: 2px solid white;
 }
 .hero-text-arabic {
   position: absolute;
-  bottom: 50px;
+  bottom: 45px;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Amiri', serif; /* خط عربي مهيب */
-  font-size: 20px;
+  font-size: 18px;
   color: white;
    
   padding: 10px 25px;
