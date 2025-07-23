@@ -1,9 +1,9 @@
 let cart = [];
 let selectedLatLng = null;
-let restaurantLatLng = [29.692874,-9.732683];
+let restaurantLatLng = [29.692874, -9.732683];
 let map, customerMarker;
 
-const arabicPhrases = ["     مرحبا بالجميع   ",  " في المطعم  الألذ "];
+const arabicPhrases = ["     مرحبا بالجميع   ", " في المطعم  الألذ "];
 let currentIndex = 0;
 const arabicText = document.getElementById("arabic-text");
 
@@ -24,6 +24,9 @@ function addToCart(name, price, image) {
     cart.push({ name, price, image, qty: 1 });
   }
   updateTotal();
+
+  // 🆕 إخفاء العناصر الزائدة عند الإضافة
+  hideExtras();
 }
 
 // ✅ تحديث المجموع
@@ -83,7 +86,7 @@ function removeItem(index) {
 }
 
 // ====== إضافة: تعريف نصف قطر التوصيل (بالمتر)
-const deliveryRadius = 2500; // 1000 متر
+const deliveryRadius = 1000; // 1000 متر
 
 // ====== إضافة: حساب المسافة بين نقطتين LatLng
 function getDistance(latlng1, latlng2) {
@@ -111,6 +114,8 @@ function showOrderOptions() {
   document.getElementById("order-options").style.display = "block";
 }
 
+
+
 // ✅ اختيار نوع الطلب
 function selectOption(type) {
   if (cart.length === 0) {
@@ -118,8 +123,10 @@ function selectOption(type) {
     return;
   }
 
-  // إخفاء خيارات الطلب فور اختيار النوع
   document.getElementById("order-options").style.display = "none";
+
+document.getElementById("order-button").style.display = "none";
+
 
   if (type === "delivery") {
     document.getElementById("map-container").style.display = "block";
@@ -142,13 +149,11 @@ function initMap() {
     iconUrl: 'Logotime.png',
     iconSize: [50, 50],
     iconAnchor: [25, 50],
-    className: 'circular-icon' // 👈 باش نطبق CSS للتدوير
+    className: 'circular-icon'
   });
 
-  // ماركر المطعم
-  L.marker(restaurantLatLng, { icon: restaurantIcon }).addTo(map).bindPopup(" دير العلامة في بلاصة لبغيتي اوصلك لها دوموند وشكرا ").openPopup();
+  L.marker(restaurantLatLng, { icon: restaurantIcon }).addTo(map).bindPopup("دير العلامة في المكان لبغيتي إوصلك لها دوموند وشكرا").openPopup();
 
-  // دائرة حمراء وسط المطعم - نصف قطر 1000 متر
   L.circle(restaurantLatLng, {
     color: 'red',
     fillColor: '#f03',
@@ -156,7 +161,6 @@ function initMap() {
     radius: deliveryRadius
   }).addTo(map);
 
-  // تعامل مع الضغط على الخريطة
   map.on("click", function (e) {
     const dist = getDistance(e.latlng, { lat: restaurantLatLng[0], lng: restaurantLatLng[1] });
     if (dist > deliveryRadius) {
@@ -179,7 +183,7 @@ function initMap() {
     map.invalidateSize();
   }, 300);
 }
-    
+
 // ✅ إرسال الطلب للواتساب
 function sendWhatsAppOrder() {
   if (document.getElementById("map-container").style.display === "block" && !selectedLatLng) {
@@ -187,7 +191,7 @@ function sendWhatsAppOrder() {
     return;
   }
 
-  let message = "🛒 طلب :\n";
+  let message = "🛒 طلب ";
   cart.forEach(item => {
     message += `- ${item.name} ×${item.qty}: ${item.price * item.qty} DH\n`;
   });
@@ -201,7 +205,6 @@ function sendWhatsAppOrder() {
   const url = "https://wa.me/212675251006?text=" + encodeURIComponent(message);
   window.open(url, "_blank");
 
-  // إخفاء الخريطة وزر الإرسال بعد الطلب
   document.getElementById("map-container").style.display = "none";
   document.getElementById("send-order-button").style.display = "none";
 }
@@ -210,9 +213,105 @@ function sendWhatsAppOrder() {
 document.getElementById("search").addEventListener("input", function () {
   const query = this.value.toLowerCase();
   const items = document.querySelectorAll(".item");
-
   items.forEach(item => {
     const name = item.querySelector("h3").textContent.toLowerCase();
     item.style.display = name.includes(query) ? "block" : "none";
   });
 });
+
+// ✅ إظهار/إخفاء المزيد من العناصر لكل كاتيجوري
+function toggleItems(button) {
+  const category = button.closest('.category');
+  const extras = category.querySelectorAll('.item.extra');
+
+  const isHidden = extras[0]?.classList.contains('hidden');
+
+  extras.forEach(item => {
+    item.classList.toggle('hidden');
+  });
+
+  button.textContent = isHidden ? 'إخفاء المزيد' : 'اكتشف المزيد';
+}
+
+// ✅ إخفاء العناصر الزائدة أوتوماتيكياً عند الضغط على أي منتج
+function hideExtras() {
+  document.querySelectorAll('.item.extra').forEach(extra => {
+    extra.classList.add('hidden');
+  });
+  document.querySelectorAll('.show-more-btn').forEach(btn => {
+    btn.textContent = 'اكتشف المزيد';
+  });
+}
+
+
+
+function showCategory(categoryId) {
+  // نخفي جميع الأقسام
+  const sections = document.querySelectorAll('.category-section');
+  sections.forEach(section => {
+    section.classList.remove('show');
+    section.style.display = 'none';
+  });
+
+  // نختار القسم اللي باغي نعرضوه
+  const selectedSection = document.getElementById(categoryId);
+  if (selectedSection) {
+    // ✅ نخفي العناصر الزائدة فقط داخل هذا القسم
+    selectedSection.querySelectorAll('.item.extra').forEach(extra => {
+      extra.classList.add('hidden');
+    });
+    selectedSection.querySelectorAll('.show-more-btn').forEach(btn => {
+      btn.textContent = 'اكتشف المزيد';
+    });
+
+    // نظهر القسم المختار
+    selectedSection.style.display = 'block';
+
+    setTimeout(() => {
+      selectedSection.classList.add('show');
+    }, 50);
+
+    selectedSection.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
+}
+
+// خط أحمر متحرك
+
+
+// أضف داخل showCategory بعد scrollIntoView:
+document.querySelectorAll('.category-buttons button').forEach(btn => {
+  btn.classList.remove('active');
+});
+
+// نحدد الزر اللي تكليكا عليه
+const activeBtn = Array.from(document.querySelectorAll('.category-buttons button'))
+  .find(btn => btn.textContent.trim().toLowerCase() === categoryId.toLowerCase());
+
+if (activeBtn) {
+  activeBtn.classList.add('active');
+
+  // نخلي الزر وسط السطر
+  activeBtn.scrollIntoView({
+    behavior: 'smooth',
+    inline: 'center',
+    block: 'nearest'
+  });
+}
+
+
+
+
+
+
+function hideCartPage() {
+  document.getElementById("cart-page").style.display = "none";
+}
+
+
+
+
+
+
