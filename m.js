@@ -86,7 +86,7 @@ function removeItem(index) {
 }
 
 // ====== إضافة: تعريف نصف قطر التوصيل (بالمتر)
-const deliveryRadius = 2500; // 1000 متر
+const deliveryRadius = 3400; // 1000 متر
 
 // ====== إضافة: حساب المسافة بين نقطتين LatLng
 function getDistance(latlng1, latlng2) {
