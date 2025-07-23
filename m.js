@@ -1,3 +1,25 @@
+
+  function hidePreloader(duration = 3000) {
+    const preloader = document.getElementById("preloader");
+
+    if (!preloader) return;
+
+    setTimeout(() => {
+      preloader.style.opacity = "0";
+      preloader.style.transition = "opacity 0.5s ease";
+
+      setTimeout(() => {
+        preloader.style.display = "none";
+      }, 500); // الوقت ديال fade-out
+    }, duration); // المدة قبل مايخفي preloader (مثلاً 3000 = 3 ثواني)
+  }
+
+  // تنادي على الفنكسيون بعد ما تحمل الصفحة
+  window.addEventListener("load", () => {
+    hidePreloader(1000); // تقدر تبدل الرقم
+  });
+
+
 let cart = [];
 let selectedLatLng = null;
 let restaurantLatLng = [29.692874, -9.732683];
