@@ -216,7 +216,7 @@ function sendWhatsAppOrder() {
   
   let message = "🍽️ **تفاصيل الطلب**\n\n";
 cart.forEach(item => {
-  message += ` ✓ ${item.name} ×${item.qty}\n`;
+  message += ` ✓ ${item.name} ×${item.qty} : ${item.price * item.qty} DH\n`;
 });
 
 message += `\n💰 **المجموع:** ${cart.reduce((sum, i) => sum + i.price * i.qty, 0)} DH`;
