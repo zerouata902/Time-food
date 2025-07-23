@@ -213,16 +213,18 @@ function sendWhatsAppOrder() {
     return;
   }
 
-  let message = "🛒 طلب ";
-  cart.forEach(item => {
-    message += `- ${item.name} ×${item.qty}: ${item.price * item.qty} DH\n`;
-  });
+  
+  let message = "🍽️ **تفاصيل الطلب**\n\n";
+cart.forEach(item => {
+  message += ` ✓ ${item.name} ×${item.qty}\n`;
+});
 
-  message += `\n✅ Total: ${cart.reduce((sum, i) => sum + i.price * i.qty, 0)} DH`;
+message += `\n💰 **المجموع:** ${cart.reduce((sum, i) => sum + i.price * i.qty, 0)} DH`;
 
-  if (selectedLatLng) {
-    message += `\n📍 Location: https://www.google.com/maps?q=${selectedLatLng.lat},${selectedLatLng.lng}`;
-  }
+if (selectedLatLng) {
+  message += `\n\n📍 **الموقع:** https://www.google.com/maps?q=${selectedLatLng.lat},${selectedLatLng.lng}`;
+  message += `\n🧾 راك فالأمان! غادي نجيو تال عند باب دارك  `;
+}
 
   const url = "https://wa.me/212675251006?text=" + encodeURIComponent(message);
   window.open(url, "_blank");
