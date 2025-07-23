@@ -15,11 +15,9 @@
 
   <!-- صورة مستطيلة -->
   <header class="hero">
-      <div class="closing-time">
-  <i class="fa fa-clock"></i> Closes at 00:00 AM
-</div>
-    <img src="Food.png" alt="hero" />
-    <div class="logo-circle"><img src="Logotime.png" alt="logo" /></div>
+
+    <img src="images/Food.png" alt="hero" />
+    <div class="logo-circle"><img src="images/Logotime.png" alt="logo" /></div>
    <div class="hero-text-arabic">
   <span id="arabic-text"></span>
 </div>
@@ -33,33 +31,71 @@
   </header>
 
   <!-- خانة البحث -->
+
 <div class="search-bar">
   <i class="fa fa-search"></i>
   <input type="text" id="search" placeholder="Search your meal..." />
 </div>
-  <!-- الأقسام -->
-  <div class="menu-section" id="menu-section">
+<!-- روابط التنقل بين الأقسام -->
 
-    <div class="category">
-      <h2><span class="border-left"></span>MOJITOS</h2>
-      <div class="items">
-       <div class="item">
-  <img src="33.png" alt="Pizza">
-  <h3>Mojito Fraise </h3>
-   <p class="price" data-price="40">25 DH</p>
-    <i class="fa fa-plus add-icon" onclick="addToCart('Mojitos Fraise', 25, '33.png')"></i>
+<div class="category-buttons-container">
+  <div class="category-buttons">
+    <button onclick="showCategory('Mojitos')">Mojitos</button>
+    <button onclick="showCategory('pizza')">Pizza</button>
+    <button onclick="showCategory('sandwich')">Sandwich</button>
+    <button onclick="showCategory('dessert')">Dessert</button>
+    <button onclick="showCategory('drinks')">Drinks</button>
+  </div>
 </div>
-      </div>
-   
-           
-      
-    </div>
 
-    <div class="category">
+
+
+
+  
+  
+   <div class="category" id="Burger">
+      <h2><span class="border-left"></span>BURGER</h2>
+      <div class="items">
+        <div class="item">
+          <img src="11.png" alt="Sandwich">
+          <h3>Burger Simple</h3>
+          <p>20 DH</p>
+          <i class="fa fa-plus add-icon" onclick="addToCart('Burger simple', 20, '11.png')"></i>
+        </div>
+        
+      
+        
+        <div class="item extra hidden">
+      <img src="S1.png" alt="Pizza">
+      <h3>Chicken sheese</h3>
+      <p class="price" data-price="25">27DH</p>
+      <i class="fa fa-plus add-icon" onclick="addToCart('Chiken sheese', 27, 'S1.png')"></i>
+    </div>
+    <div class="item extra hidden">
+      <img src="S2.png" alt="Pizza">
+      <h3>Double Chicken</h3>
+      <p class="price" data-price="30">30 DH</p>
+      <i class="fa fa-plus add-icon" onclick="addToCart('Double Chiken', 30, 'S2.png')"></i>
+    </div>
+  </div>    
+     
+     <div class="btn-container">
+    <button class="show-more-btn" onclick="toggleItems(this)">اكتشف المزيد</button>
+  </div>   
+         
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+ 
+<div class="category" id="pizza">
       <h2><span class="border-left"></span>PIZZA</h2>
       <div class="items">
        <div class="item">
-           
           <img src="22.png" alt="Sandwich">
           <h3>Pizza Dinde</h3>
           <p>30 DH</p>
@@ -67,25 +103,41 @@
         </div>
       </div>
     </div>
-
   </div>
 
+ 
 
 
 
-  <div class="category">
-      <h2><span class="border-left"></span>BURGER</h2>
-      <div class="items">
-        <div class="item">
-          <img src="11.png" alt="Sandwich">
-          <h3>Burger Simple</h3>
-          <p>20 DH</p>
-          <i class="fa fa-plus add-icon" onclick="addToCart('Burger simple', 20, 'B.png')"></i>
-        </div>
-      </div>
+
+
+</div> <div id="categories">
+  <div class="menu-section" id="menu-section">
+      <div class="category" id="Mojitos">
+  <h2><span class="border-left"></span>MOJITOS</h2>
+  <div class="items">
+    <div class="item">
+      <img src="33.png" alt="Pizza">
+      <h3>Mojito Fraise</h3>
+      <p class="price" data-price="25">25 DH</p>
+      <i class="fa fa-plus add-icon" onclick="addToCart('Mojito Fraise', 25, 'De.png')"></i>
     </div>
-
+  <div class="btn-container">
+    <button class="show-more-btn" onclick="toggleItems(this)">اكتشف المزيد</button>
   </div>
+</div> 
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -135,7 +187,7 @@
 <footer class="cart-bar" onclick="goToCartPage()">
   <div class="cart-left">
     <i class="fa fa-shopping-cart"></i>
-    <span id="total">Total: 0 DH</span>
+    <span style="font-weight: bold;" id="total">Total: 0 DH</span>
   </div>
   <button class="order-btn" onclick="goToCartPage()">
     أطلب الآن
@@ -148,7 +200,11 @@
   <div class="cart-page" id="cart-page">
     <h2> Votre demande  </h2>
     <div id="cart-items"></div>
-<button class="order-button" onclick="showOrderOptions()"> اطلب الآن</button>
+    
+    <button id="back-to-menu" onclick="hideCartPage()"> × </button>
+    <!-- زر اطلب الآن -->
+<button class="order-button" id="order-button" onclick="showOrderOptions()">اطلب الآن</button>
+
   </div>
 
   <!-- اختيارات التوصيل -->
@@ -156,6 +212,8 @@
     <button onclick="selectOption('local')">طلب في المطعم</button>
     <button onclick="selectOption('delivery')">توصيل</button>
   </div>
+
+<!-- زر الرجوع من السلة -->
 
 
 <!-- الخريطة -->
@@ -171,4 +229,4 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </body>
-</html>
+  </html>
